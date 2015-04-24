@@ -58,14 +58,14 @@ class FPSAnalyzr {
     // The actual number of FPS measurements currently known
     private numRecorded: number;
 
-    // The current position in the measurements Array
+    // The current position in measurements
     private ticker: number;
 
     // The most recent performance.now timestamp
     private timeCurrent: number;
 
     // A system-dependant performance.now function
-    private getTimestamp: any;
+    public getTimestamp: any;
 
     /**
      * Resets the FPSAnalyzr.
@@ -78,7 +78,7 @@ class FPSAnalyzr {
      *                                  timestamp. By default this is 
      *                                  performance.now.
      */
-    constructor(settings: FPSAnalyzrSettings) {
+    constructor(settings: FPSAnalyzrSettings = {}) {
         this.maxKept = settings.maxKept || 35;
         this.numRecorded = 0;
         this.ticker = -1;
@@ -101,7 +101,7 @@ class FPSAnalyzr {
                     || (<any>performance).mozNow
                     || (<any>performance).msNow
                     || (<any>performance).oNow
-                ).bind(performance);
+                    ).bind(performance);
             }
         } else {
             this.getTimestamp = settings.getTimestamp;
@@ -120,15 +120,14 @@ class FPSAnalyzr {
      * @param {DOMHighResTimeStamp} time   An optional timestamp, without which
      *                                     getTimestamp() is used instead.
      */
-    measure(time: number): void {
-        var timeNew: number = time || this.getTimestamp(),
-            fpsNew: number;
+    measure(time: number = this.getTimestamp()): void {
+        var fpsNew: number;
 
         if (this.timeCurrent) {
-            this.addFPS(1000 / (timeNew - this.timeCurrent));
+            this.addFPS(1000 / (time - this.timeCurrent));
         }
 
-        this.timeCurrent = timeNew;
+        this.timeCurrent = time;
     }
 
     /**
@@ -149,12 +148,31 @@ class FPSAnalyzr {
     */
 
     /**
-     * Get function for numRecorded
-     * 
-     * @return {Number}
+     * @return {Number} The number of FPS measurements to keep.
+     */
+    getMaxKept(): number {
+        return this.maxKept;
+    }
+
+    /**
+     * @return {Number} The actual number of FPS measurements currently known.
      */
     getNumRecorded(): number {
         return this.numRecorded;
+    }
+
+    /**
+     * @return {Number} The most recent performance.now timestamp.
+     */
+    getTimeCurrent(): number {
+        return this.timeCurrent;
+    }
+
+    /**
+     * @return {Number} The current position in measurements.
+     */
+    getTicker(): number {
+        return this.ticker;
     }
 
     /**
