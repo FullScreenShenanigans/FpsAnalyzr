@@ -1,7 +1,7 @@
 import { IFPSAnalyzr, IFPSAnalyzrSettings, ITimestampGetter } from "./IFPSAnalyzr";
 
 /**
- * Stores and analyzes framerate measurements.
+ * Storage and analysis for framerate measurements.
  */
 export class FPSAnalyzr implements IFPSAnalyzr {
     /**

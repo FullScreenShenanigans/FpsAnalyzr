@@ -1,6 +1,6 @@
 {
   "name": "fpsanalyzr",
-  "description": "Stores and analyzes framerate measurements.",
+  "description": "Recording and analysis for framerate measurements.",
   "version": "0.4.0",
   "author": {
     "name": "Josh Goldberg",

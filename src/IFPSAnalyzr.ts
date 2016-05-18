@@ -21,7 +21,7 @@ export interface IFPSAnalyzrSettings {
 }
 
 /**
- * Stores and analyzes framerate measurements.
+ * Storage and analysis for framerate measurements.
  */
 export interface IFPSAnalyzr {
     /**

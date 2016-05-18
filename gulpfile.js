@@ -32,7 +32,8 @@ gulp.task("dist", function() {
     const tsProject = ts.createProject(
         "tsconfig.json",
         {
-            outFile: "dist/ItemsHoldr.js"
+            outFile: "dist/FPSAnalyzr.js",
+            removeComments: true
         });
 
     const tsResult = tsProject
